@@ -1,0 +1,29 @@
+
+// This #include statement was automatically added by the Particle IDE.
+#include <HC_SR04.h>
+
+int cm = 0;
+int trigPin = D3;
+int echoPin = D2;
+int LED= D6;
+HC_SR04 rangeFinder = HC_SR04(trigPin, echoPin);
+void setup() {
+    pinMode(LED,OUTPUT);
+}
+
+void loop() {
+    
+   cm = rangeFinder.getDistanceCM();
+  if (cm > 1){
+      Particle.publish("Wave", "NO MOTION",PRIVATE);
+      digitalWrite(LED,LOW);
+    
+  }
+  else{
+      Particle.publish("Wave", "WAVE!!!", PRIVATE);
+      digitalWrite(LED,HIGH);
+    
+  }
+  delay(1000);
+ 
+}
